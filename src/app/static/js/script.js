@@ -22,15 +22,27 @@ function initializeSession() {
 }
 
 function toggleLoading(show) {
-            loadingIndicator.classList.toggle('hidden', !show);
-            
-            submitButton.disabled = show;
-            userInput.disabled = show;
-            
-            if (show) {
-                 chatbox.scrollTop = chatbox.scrollHeight; 
+        if (show) {
+            // garante que o indicador esteja visível e sempre como último filho do chatbox
+            loadingIndicator.classList.remove('hidden');
+            submitButton.disabled = true;
+            userInput.disabled = true;
+
+            if (!chatbox.contains(loadingIndicator)) {
+                chatbox.appendChild(loadingIndicator);
+            } else {
+                // move para o final caso já exista
+                chatbox.appendChild(loadingIndicator);
             }
+
+            // rola até o fim para mostrar o indicador
+            chatbox.scrollTop = chatbox.scrollHeight;
+        } else {
+            loadingIndicator.classList.add('hidden');
+            submitButton.disabled = false;
+            userInput.disabled = false;
         }
+    }
 
 function markdownToHtml(markdownText) {
     let html = markdownText;
@@ -105,9 +117,7 @@ function addMessage(rawMessage, sender) {
 
 // --- 3. Função Assíncrona para Chamar a API ---
 async function sendMessageToAPI(message) {
-    loadingIndicator.classList.remove('hidden'); // Mostra o indicador de loading
-    submitButton.disabled = true; // Desabilita o botão
-
+    toggleLoading(true);
     try {
         const response = await fetch('http://127.0.0.1:5000/api/question-and-answer', {
             method: 'POST',
@@ -120,44 +130,33 @@ async function sendMessageToAPI(message) {
                 message: message
             })
         });
-
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
             throw new Error(`Erro do servidor (${response.status}): ${errorData.error || 'Falha na comunicação com a API.'}`);
         }
-
         const data = await response.json();
-        
         toggleLoading(false);
-        
         addMessage(data.response || 'Desculpe, não recebi uma resposta válida.', 'bot');
-
     } catch (error) {
         console.error('Erro na chamada da API:', error);
         addMessage(`Ocorreu um erro: ${error.message}. Verifique se seu servidor Flask está rodando.`, 'bot');
     } finally {
-        loadingIndicator.classList.add('hidden'); // Esconde o indicador de loading
-        submitButton.disabled = false; // Habilita o botão novamente
-        userInput.focus(); // Coloca o foco de volta no campo de input
+        toggleLoading(false);
+        userInput.focus(); 
     }
 }
 
 // --- 4. Evento de Submissão do Formulário ---
 inputForm.addEventListener('submit', (event) => {
     event.preventDefault(); 
-
     const userMessage = userInput.value.trim();
-
     if (userMessage === '') {
         return;
     }
-    
     // 1. Adiciona a mensagem do usuário
     addMessage(userMessage, 'user');
-    
     // 2. Chama a API
     sendMessageToAPI(userMessage);
-
     // 3. Limpa o campo
     userInput.value = '';
 });

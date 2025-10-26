@@ -1,6 +1,6 @@
+from google.genai.errors import APIError
 from flask import Flask, jsonify, render_template, request
 from app.service.ai_service import GeminiChatService
-from google.genai.errors import APIError
 
 
 app = Flask(__name__, template_folder="app/templates", static_folder="app/static")
@@ -8,7 +8,7 @@ chat_sessions = {}
 
 @app.route('/')
 def home():
-     render_template('index.html')
+    return render_template('index.html')
 
 @app.route('/api/question-and-answer', methods=['POST'])
 def send_message():
@@ -33,9 +33,8 @@ def send_message():
         error_message = f"Dados de entrada inválidos ou ausentes: {e}. Certifique-se de que o JSON contenha 'session_id' e 'message'."
         return jsonify({"error": error_message, "type": "InvalidInputError"}), 400
 
-    except APIError as e: 
-        error_message = (f"ERRO 500 - API Gemini Falhou: {e}")
+    except APIError as e:
+        error_message = f"ERRO 500 - API Gemini Falhou: {e}"
         return jsonify({"error": error_message, "type": "GeminiAPIError"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    

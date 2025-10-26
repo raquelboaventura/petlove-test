@@ -9,7 +9,6 @@ class GeminiChatService:
     def __init__(self):
         load_dotenv()
         api_key = os.getenv("GEMINI_API_KEY")
-        
         if not api_key:
             raise ValueError("Chave GEMINI_API_KEY não encontrada nas variáveis de ambiente.")
 
