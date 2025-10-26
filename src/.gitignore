@@ -1,0 +1,41 @@
+Ignorando arquivos de ambiente Python
+
+Pastas de ambiente virtual
+
+.venv
+venv
+env
+/site
+
+Arquivos de bytecode e cache
+
+pycache/
+*.py[cod]
+*$py.class
+*.pyd
+
+Arquivos de variáveis de ambiente
+
+.env
+.env.*
+.flaskenv
+
+Arquivos de log e banco de dados
+
+*.log
+*.sqlite
+/instance
+
+Arquivos gerados por IDEs 
+
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+Arquivos do pacote Python
+
+build/
+dist/
+*.egg-info/
