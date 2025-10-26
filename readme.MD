@@ -13,20 +13,7 @@ obs.: também tem uma interface com html + css + javascript
    ```bash
    venv\Scripts\activate
    ```
-
-2. **Defina a variável de ambiente do Flask:**
-
-   ```powershell
-   $env:FLASK_APP = "run.py"
-   ```
-
-   *(Se estiver usando Linux/Mac, use:)*
-
-   ```bash
-   export FLASK_APP=run.py
-   ```
-
- 3. **Configure o arquivo .env**
+ 2. **Configure o arquivo .env**
 
     Crie um arquivo .env na raiz do projeto e adicione sua chave da API Gemini:
     ```
@@ -36,7 +23,7 @@ obs.: também tem uma interface com html + css + javascript
 4. **Execute o servidor Flask:**
 
    ```bash
-   flask run
+   python run.py
    ```
 
 ---

@@ -119,7 +119,7 @@ function addMessage(rawMessage, sender) {
 async function sendMessageToAPI(message) {
     toggleLoading(true);
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/question-and-answer', {
+        const response = await fetch('http://127.0.0.1:3000/api/question-and-answer', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

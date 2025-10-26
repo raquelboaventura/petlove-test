@@ -38,3 +38,7 @@ def send_message():
         return jsonify({"error": error_message, "type": "GeminiAPIError"}), 500
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    app.run(host='127.0.0.1', port=3000, debug=True)
