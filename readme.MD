@@ -3,6 +3,7 @@
 
 Este projeto é um **backend em Flask** que fornece uma API para integração com um serviço de IA. Ele inclui uma estrutura organizada com diretórios para templates e arquivos estáticos.
 
+obs.: também tem uma interface com html + css + javascript
 ---
 
 ## ⚙️ Configuração do Ambiente
