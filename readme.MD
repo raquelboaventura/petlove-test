@@ -1,3 +1,5 @@
+![banner assistente petlove](https://github.com/raquelboaventura/petlove-test/blob/main/src/app/static/img/Dynapuff.png)
+
 # 🐾 Flask Chatbot - Teste Técnico Petlove
 
 
